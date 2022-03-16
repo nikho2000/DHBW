@@ -1,0 +1,12 @@
+[
+    {
+        "name": "admin",
+        "password": "admin",
+        "balance": 10000000
+    },
+    {
+        "name": "niklas",
+        "password": "niklas",
+        "balance": 190.99999999999994
+    }
+]
