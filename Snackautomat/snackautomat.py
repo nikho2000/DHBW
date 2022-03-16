@@ -1,5 +1,9 @@
 """
 Snackautomat
+3 Pylint Warnungen sind noch vorhanden, jedoch habe ich entschieden diese
+nicht zu entfernen, da ich hierfür mein gesamtes Programm neu
+Strukturieren und aufbauen müsste um 2 Warnungen zu entfernen!
+Und die Dritte Warnung ergab für mich keinen Sinn (snackautomat.py:188:4: R1710)
 """
 
 import os
@@ -338,6 +342,7 @@ class Snackautomat:
                         if not check_input(product["id"]) == _id:
                             continue
                         if not product["amount"] > 0:
+                            print("| Product out of Stock!")
                             break
                         product["amount"] = product["amount"] - 1
                         self.outsourced_for_pylint(product)
