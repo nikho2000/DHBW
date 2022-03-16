@@ -1,10 +1,1 @@
-[{"name": "Snickers", "price": 1.2, "amount": 2, "id" :  1},
-  {"name": "Mars", "price": 1.2, "amount": 2, "id" :  2},
-  {"name": "Gummib\u00e4rchen", "price": 2.5, "amount": 2, "id" :  3},
-  {"name": "Skittles", "price": 1.55, "amount": 2, "id" :  4},
-  {"name": "Bifi", "price": 2.3, "amount": 2, "id" :  5},
-  {"name": "Corny", "price": 2.2, "amount": 2, "id" :  6},
-  {"name": "Bounty", "price": 1.4, "amount": 2, "id" :  7},
-  {"name": "Knoppers", "price": 1.9, "amount": 2, "id" :  8},
-  {"name": "Mentos", "price": 1.35, "amount": 2, "id" :  9},
-  {"name": "Twix", "price": 1.2, "amount": 2, "id" :  10}]
+[{"name": "Snickers", "price": 1.2, "amount": 2, "id": 1}, {"name": "Mars", "price": 1.2, "amount": 2, "id": 2}, {"name": "Gummib\u00e4rchen", "price": 2.5, "amount": 2, "id": 3}, {"name": "Skittles", "price": 1.55, "amount": 0, "id": 4}, {"name": "Bifi", "price": 2.3, "amount": 2, "id": 5}, {"name": "Corny", "price": 2.2, "amount": 2, "id": 6}, {"name": "Bounty", "price": 1.4, "amount": 2, "id": 7}, {"name": "Knoppers", "price": 1.9, "amount": 2, "id": 8}, {"name": "Mentos", "price": 1.35, "amount": 2, "id": 9}, {"name": "Twix", "price": 1.2, "amount": 2, "id": 10}]
