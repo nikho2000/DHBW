@@ -1,15 +1,32 @@
+"""
+Snackautomat
+"""
+
 import os
 import json
+import sys
 
 
 def safe_input(value):
+    """
+    Überprüft ob der Input abgebrochen wird, und beendet das Programm wenn dies geschieht
+    :param value:
+    :return:
+    """
+
     try:
         return input(value)
     except KeyboardInterrupt:
-        exit()
+        sys.exit()
 
 
 def check_input(value):
+    """
+    Wandelt die Übergebene Variable wenn möglich in einen Float ansonsten wird 0 ausgegeben
+    :param value:
+    :return:
+    """
+
     try:
         return float(value)
     except ValueError:
@@ -17,8 +34,14 @@ def check_input(value):
 
 
 class Snackautomat:
-
+    """
+    Klasse Snackautmat
+    """
     def __init__(self):
+        """
+        Konstruktor des Snackautomaten, deklariert alle benötigten variablen
+        """
+
         self.products = []
         self.users = []
         self.check_products()
@@ -28,10 +51,20 @@ class Snackautomat:
         self.current_account = 0
 
     def check_products(self):
+        """
+        Überprüft ob eine products.json datei vorhanden ist
+        :return:
+        """
+
         if not os.path.isfile("products.json"):
             self.create_products()
 
     def create_products(self):
+        """
+        erstellt eine vorgefertigte products.json datei, und ließt den Wert in die products variable
+        :return:
+        """
+
         with open("products.json", "x", encoding="utf-8") as file:
             product = [{"name": "Snickers", "price": 1.2, "amount": 10, "id": 1},
                        {"name": "Mars", "price": 1.2, "amount": 10, "id": 2},
@@ -49,19 +82,39 @@ class Snackautomat:
             self.products = json.load(file)
 
     def load_products(self):
+        """
+        ließt den aktuellen stand der products.json Datei in die products variable ein
+        :return:
+        """
+
         with open("products.json", "r", encoding="utf-8") as products:
             self.products = json.load(products)
 
     def update_products(self):
+        """
+        Schreibt den aktuellsten Stand der products variable in die products.json
+        :return:
+        """
+
         self.check_products()
         with open("products.json", "w", encoding="utf-8") as products:
             json.dump(self.products, products)
 
     def check_userdata(self):
+        """
+        Überprüft ob die userdata.json Datei vorhanden ist
+        :return:
+        """
+
         if not os.path.isfile("userdata.json"):
             self.create_userdata()
 
     def create_userdata(self):
+        """
+        Erstellt eine userdata.json mit bsp. Benutzer und liest diese in die users variable ein
+        :return:
+        """
+
         with open("userdata.json", "x", encoding="utf-8") as userdata:
             user = [{"name": "admin", "password": "admin", "balance": 10000000}]
             json.dump(user, userdata, indent=4)
@@ -70,21 +123,44 @@ class Snackautomat:
             self.users = json.load(userdata)
 
     def load_userdata(self):
+        """
+        Ließt den aktuellsten Stand der userdata.json in die users variable ein
+        :return:
+        """
+
         with open("userdata.json", "r", encoding="utf-8") as userdata:
             self.users = json.load(userdata)
 
     def update_user(self):
+        """
+        Schreibt den aktuellsten Stand der users Variable in die userdata.json
+        :return:
+        """
+
         self.check_userdata()
         with open("userdata.json", "w", encoding="utf-8") as userdata:
             json.dump(self.users, userdata, indent=4)
 
     def create_account(self, name, password):
+        """
+        Erstellt einen Benutzer und speichert ihn in die userdata.json
+        :param name:
+        :param password:
+        :return:
+        """
+
         self.check_userdata()
         self.users.append({"name": name, "password": password, "balance": 0})
         self.update_user()
         return name
 
     def check_account(self, name):
+        """
+        Überprüft ob ein Benutzer in der userdata.json vorhanden ist
+        :param name:
+        :return:
+        """
+
         self.check_userdata()
         for user in self.users:
             if name == user["name"]:
@@ -92,6 +168,13 @@ class Snackautomat:
         return False
 
     def check_password(self, name, password):
+        """
+        Überprüft ob das Zugehörige Passwort zu einem Benutzer korrekt ist
+        :param name:
+        :param password:
+        :return:
+        """
+
         self.check_userdata()
         for user in self.users:
             if password == user["password"] and name == user["name"]:
@@ -99,12 +182,24 @@ class Snackautomat:
         return False
 
     def login_account(self, name, password):
+        """
+        Wenn die Eingegeben Benutzerdaten korrekt sind, wird der Name des Benutzers returnt
+        :param name:
+        :param password:
+        :return:
+        """
+
         self.check_userdata()
         for user in self.users:
             if name == user["name"] and password == user["password"]:
                 return name
 
     def list_products(self):
+        """
+        Gibt jedes Produkt aus der products Variable aus
+        :return:
+        """
+
         for product in self.products:
             if product["amount"] == 0:
                 print("| ID | " + str(product["id"]) + " | " + str(product["name"]) +
@@ -115,7 +210,28 @@ class Snackautomat:
                       " | Price: " + str(product["price"]) + " | Amount: " +
                       str(product["amount"]))
 
+    def outsourced_for_pylint(self, product):
+        """
+        Outsourced Function damit pylint nicht rumheult
+        :param product:
+        :return:
+        """
+
+        for user in self.users:
+            if not user["name"] == self.current_account:
+                continue
+            user["balance"] = user["balance"] - product["price"]
+            print("| Your new balance: " + str(user["balance"]))
+            self.update_user()
+            self.update_products()
+            break
+
     def run(self):
+        """
+        Programmablauf des Snackautomaten
+        :return:
+        """
+
         while True:
             print("============================================================")
             print("| Put in your Keycard and choose on of the following options")
@@ -164,7 +280,7 @@ class Snackautomat:
                 continue
 
             if data[0] == "4":
-                exit()
+                sys.exit()
 
             while True:
                 print("============================================================")
@@ -224,14 +340,7 @@ class Snackautomat:
                         if not product["amount"] > 0:
                             break
                         product["amount"] = product["amount"] - 1
-                        for user in self.users:
-                            if not user["name"] == self.current_account:
-                                continue
-                            user["balance"] = user["balance"] - product["price"]
-                            print("| Your new balance: " + str(user["balance"]))
-                            self.update_user()
-                            self.update_products()
-                            break
+                        self.outsourced_for_pylint(product)
                         break
 
                 if data[0] == "5":
